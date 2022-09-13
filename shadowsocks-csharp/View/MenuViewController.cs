@@ -1040,7 +1040,16 @@ namespace Shadowsocks.View
             }
             else if (e.Button == MouseButtons.Middle)
             {
-                ShowServerLogForm();
+                Configuration config = controller.GetCurrentConfiguration();
+                int sysProxyMode = config.sysProxyMode;
+                if (sysProxyMode == (int)ProxyMode.Pac)
+                {
+                    controller.ToggleMode(ProxyMode.Global);
+                }
+                if (sysProxyMode == (int)ProxyMode.Global)
+                {
+                    controller.ToggleMode(ProxyMode.Pac);
+                }
             }
         }
 
